@@ -264,18 +264,19 @@ exports.acceptOffer = async (req, res, next) => {
       switch (role) {
         case "regular":
           roleInsert = await dbPool.query(
-            `INSERT INTO Regulars (user) VALUES(?)`,
+            `INSERT INTO Regulars (username) VALUES(?)`,
             [username]
           );
           break;
         case "hr":
-          roleInsert = await dbPool.query(`INSERT INTO Hrs (user) VALUES(?)`, [
-            username,
-          ]);
+          roleInsert = await dbPool.query(
+            `INSERT INTO Hrs (username) VALUES(?)`,
+            [username]
+          );
           break;
         case "manager":
           roleInsert = await dbPool.query(
-            `INSERT INTO Managers (user) VALUES(?)`,
+            `INSERT INTO Managers (username) VALUES(?)`,
             [username]
           );
           break;

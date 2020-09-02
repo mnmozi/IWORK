@@ -14,6 +14,7 @@ exports.staffMemberQuery = async (req, res, next) => {
       throw error;
     }
     req.staffMember = staffMember[0][0];
+    next();
   } catch (err) {
     next(err);
   }

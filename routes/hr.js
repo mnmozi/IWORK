@@ -12,6 +12,36 @@ router.post(
   hrController.addQuestions
 );
 router.post("/addJob", validator.newJobValidation, hrController.addNewJob);
-router.get("/getJob/:jobTitle", hrController.getJob);
 
+router.put(
+  "/editJob/:jobTitle",
+  validator.editJobValidation,
+  hrController.editJob
+);
+router.get("/getJob/:jobTitle", hrController.getJob);
+router.get("/getApplications/:jobTitle", hrController.viewApplications);
+
+router.post("/applicationRespond", hrController.applicationRespond);
+router.post(
+  "/postAnnouncement",
+  validator.postAnnouncement,
+  hrController.postAnnouncement
+);
+router.get("/getRequests", hrController.getRequests);
+router.put(
+  "/requestRespond",
+  validator.hrRequestRespond,
+  hrController.requestRespond
+);
+
+router.get(
+  "/showAttendanceRecords/:username",
+  validator.atTheSameCompanyDepartmentCheck,
+  hrController.showAttendanceRecords
+);
+router.get(
+  "/showAttendanceByMonth/:username/:year",
+  validator.atTheSameCompanyDepartmentCheck,
+  hrController.hoursInYearByMonth
+);
 module.exports = router;

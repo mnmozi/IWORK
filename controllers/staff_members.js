@@ -37,7 +37,7 @@ exports.checkIn = async (req, res, next) => {
       throw error;
     }
     const result = await dbPool.query(
-      `INSERT INTO Attendance_Records(user,date,check_in) VALUES (?,?,?)`,
+      `INSERT INTO Attendance_Records(username,date,check_in) VALUES (?,?,?)`,
       [username, todayDate, currentTime]
     );
     if (result[0].affectedRows !== 1) {
@@ -98,7 +98,7 @@ exports.checkOut = async (req, res, next) => {
     }
 
     const result = await dbPool.query(
-      `UPDATE Attendance_Records SET check_out = ? WHERE user = ? AND date = ?`,
+      `UPDATE Attendance_Records SET check_out = ? WHERE username = ? AND date = ?`,
       [currentTime, username, todayDate]
     );
     if (result[0].affectedRows !== 1) {
@@ -133,7 +133,7 @@ exports.getAttendanceRecords = async (req, res, next) => {
     const from = req.body.from;
     const to = req.body.to;
     recordsResult = await dbPool.query(
-      `SELECT * FROM Attendance_Records WHERE user = ? AND date BETWEEN ? AND ?`,
+      `SELECT * FROM Attendance_Records WHERE username = ? AND date BETWEEN ? AND ?`,
       [username, from, to]
     );
     const returnObject = {
@@ -160,6 +160,7 @@ exports.applyForRequest = async (req, res, next) => {
       error.data = errors.array();
       throw error;
     }
+    logger.info("hello");
     //check if it is a leave request or a business request
     const username = req.username;
     const replacement = req.body.replacement;
