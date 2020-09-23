@@ -4,3 +4,5 @@ node_modules
 #git files
 .git
 
+#database
+data/database/files
