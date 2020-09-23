@@ -1,7 +1,7 @@
 const express = require("express");
 
 const staffMemberController = require("../controllers/staff_members");
-const validator = require("../middleware/validator");
+const validator = require("../middleware/validators/staff_members");
 
 const router = express.Router();
 

@@ -43,7 +43,7 @@ exports.applyForJob = async (req, res, next) => {
       logger.info("%o", returnObject);
       res.status(201).json(returnObject);
     } else {
-      const error = new Error("Sorry The experience requirements are not meet");
+      const error = new Error("Sorry The experience requirements are not met");
       error.statusCode = 400;
       error.data = {
         username: username,

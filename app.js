@@ -1,10 +1,7 @@
-const path = require("path");
-
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
-const db = require("./util/database");
 const logger = require("./util/log");
 
 const authMiddleware = require("./middleware/auth");
@@ -17,6 +14,8 @@ const jobsRouter = require("./routes/jobs");
 const jobSeekerRouter = require("./routes/jobSeeker");
 const staffMemberRouter = require("./routes/staff_members");
 const hrRouter = require("./routes/hr");
+const regularRouter = require("./routes/regular");
+const managerRouter = require("./routes/manager");
 // app.use((req, res, next) => {
 //   logger.info(req.originalUrl);
 //   next();
@@ -35,6 +34,13 @@ app.use(
   staffMemberRouter
 );
 app.use("/hr", authMiddleware, roleMiddleware.hrCheck, hrRouter);
+app.use(
+  "/regular",
+  authMiddleware,
+  roleMiddleware.staffMemberQuery,
+  regularRouter
+);
+app.use("/manager", authMiddleware, roleMiddleware.managerCheck, managerRouter);
 // app.use("/", (req, res) => {
 //   logger.info("This is the main page");
 // });

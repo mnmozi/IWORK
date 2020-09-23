@@ -1,18 +1,15 @@
-var daysOff = [1, 4, 3, 4];
-var data = [];
-daysOff.filter((value, index, self) => {
-  if (self.indexOf(value) === index && value <= 7) {
-    data.push(["nasr", value]);
-    return "nasr" + value;
-  }
-  return false;
-});
-const date = new Date();
-const currentTime =
-  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-console.log(currentTime);
-console.log(date.getHours());
-console.log(date.toDateString());
-console.log(date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear());
+const to = new Date("2021-04-27");
+const from = new Date("2021-04-12");
 
-console.log(date.getMinutes());
+daysOff = [];
+var ndays = 1 + Math.round((to - from) / (24 * 3600 * 1000));
+let totalDays;
+
+totalDays = daysOff.reduce((total, currentValue, index) => {
+  return (
+    total + Math.floor((ndays + ((from.getDay() + 6 - currentValue) % 7)) / 7)
+  );
+}, 0);
+
+console.log(ndays);
+console.log(ndays - totalDays);

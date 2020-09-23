@@ -291,11 +291,11 @@ exports.applicationRespond = async (req, res, next) => {
     const username = req.username;
     const application = req.body.application;
     const staffMember = req.staffMember;
-    const responsd = req.body.responsd;
+    const respond = req.body.respond;
     const result = await dbPool.query(
       `UPDATE Applications SET hr_response = ?,hr = ? WHERE id = ? AND department = ? AND company = ?`,
       [
-        responsd,
+        respond,
         username,
         application,
         staffMember.department,
@@ -407,7 +407,7 @@ exports.requestRespond = async (req, res, next) => {
           Math.floor((ndays + ((from.getDay() + 6 - currentValue) % 7)) / 7)
         );
       }, 0);
-      const annualLeavesLeft = req.request.annual_leaves - totalDays;
+      const annualLeavesLeft = req.request.annual_leaves - (ndays - totalDays);
       if (annualLeavesLeft < 0) {
         const error = new Error(
           `You can't accept this request as the annual leaves of ${req.request.username} are not enough`

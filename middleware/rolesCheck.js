@@ -37,3 +37,22 @@ exports.hrCheck = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.managerCheck = async (req, res, next) => {
+  try {
+    const username = req.username;
+    const result = await dbPool.query(
+      `SELECT Staff_Members.*,Managers.type FROM Staff_Members JOIN Managers ON Staff_Members.username = Managers.username WHERE Staff_Members.username = ?`,
+      [username]
+    );
+    if (result[0].length !== 1) {
+      const error = new Error("UNAUTHORIZED ACTION manager check");
+      error.statusCode = 401;
+      throw error;
+    }
+    req.staffMember = result[0][0];
+    next();
+  } catch (err) {
+    next(err);
+  }
+};

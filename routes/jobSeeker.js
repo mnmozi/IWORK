@@ -1,7 +1,7 @@
 const express = require("express");
 
 const jobSeekerController = require("../controllers/jobSeeker");
-const validator = require("../middleware/validator");
+const validator = require("../middleware/validators/jobSeeker");
 
 const router = express.Router();
 
